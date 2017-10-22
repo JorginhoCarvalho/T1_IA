@@ -94,7 +94,7 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][8] = 9;
 
 }
-
+// Esta função verifica se já existe o numero na mesma linha ou na mesma coluna.
 int Verifica(int (*Matriz)[9], int n, int m){
 	int i;
 	for(i=0;i<9;i++){
@@ -105,8 +105,12 @@ int Verifica(int (*Matriz)[9], int n, int m){
 		if(Matriz[n][m] == Matriz[i][m])
 			return 0;
 	}
+	return 1;
 }
 
+// Verifica se o numero já existe na matriz 3x3
+// Variaveis n e m é a posição da matriz que tem o numero 0 e vamos alterar.
+// Não está completa
 int Verifica_matriz3x3(int (*Matriz)[9], int n, int m){
 
 	int auxn = n +1;
@@ -124,29 +128,32 @@ int Verifica_matriz3x3(int (*Matriz)[9], int n, int m){
 	 
 }
 
+// Função teste
 int pertence(int (*vetor)[3], int n){
 	for(int i=0;i<3;i++){
-		for(int j=0;j<3, j++){
-		if(vetor[i] == n)
+		for(int j=0;j<3; j++){
+		if(vetor[i][j] == n)
 			return 1;
 		}
 	}	
 	return 0; 
 }
 
-void substitui(int *vetor){
+// Essa função altera o valor na matriz onde está o numero 0.
+void substitui(int (*vetor)[3]){
 	int cont = 1;
 	int i, j;
 	int aux = 1;
-	for(i=0;i<9;i++){
-		if(vetor[i] == 0){
-			while(cont < 10 && (aux ==1)){
-			aux = pertence(vetor, cont);
-			printf("aux: %d.", aux);
-			if(aux == 1)
-				cont++;
-			else
-				vetor[i] = cont;
+	for(i=0;i<3;i++){
+		for(j=0;j<3; j++){
+			if(vetor[i][j] == 0){
+				while(cont < 10 && (aux ==1)){
+				aux = pertence(vetor, cont);
+				if(aux == 1)
+					cont++;
+				else
+					vetor[i][j] = cont;
+				}
 			}
 		}
 		cont == 0;
@@ -157,14 +164,15 @@ void substitui(int *vetor){
 int main(){
 	int Matriz[9][9];
 	estado_inicial(Matriz);
-	int vetor[3][3] = {{1, 2, 3}, {4, 5, 0}, {9,0,8}};
+	int vetor[3][3] = {{1, 0, 3}, {4, 0, 2}, {9,0,8}};
 	int i, j;
 
-	//substitui(vetor);
+	substitui(vetor);
 
-	//for(i=0;i<9;i++){
-	//	printf("%d", vetor[i]);
-	//}
-	
-	
+	for(i=0;i<3;i++){
+		for(j=0;j<3; j++){
+			printf("%d", vetor[i][j]);
+		}
+		printf("\n");
+	}
 }
