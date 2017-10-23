@@ -95,19 +95,27 @@ void estado_inicial(int (*Matriz)[9]){
 
 }
 // Esta função verifica se já existe o numero na mesma linha ou na mesma coluna.
-int Verifica(int (*Matriz)[9], int n, int m){
+int Verifica(int (*Matriz)[3], int n, int m){
 	int i;
-	for(i=0;i<9;i++){
+	int cont = 0;
+	// Verifica se possui o mesmo numero na linha
+	for(i=0;i<3;i++){
 		if(Matriz[n][m] == Matriz[n][i])
-			return 0;
+			cont++;
+		if(cont == 2)
+			return 1;
 	}
-	for(i=0;i<9;i++){
+	cont = 0;
+	// Verifica se possui o mesmo numero na coluna
+	for(i=0;i<3;i++){
 		if(Matriz[n][m] == Matriz[i][m])
-			return 0;
+			cont++;
+		if(cont == 2)
+			return 1;
 	}
-	return 1;
+	return 0;
 }
-
+/*
 // Verifica se o numero já existe na matriz 3x3
 // Variaveis n e m é a posição da matriz que tem o numero 0 e vamos alterar.
 // Não está completa
@@ -126,18 +134,19 @@ int Verifica_matriz3x3(int (*Matriz)[9], int n, int m){
 		}
 	}
 	 
-}
+}*/
 
-// Função teste
-int pertence(int (*vetor)[3], int n){
+// Função que verifica se o numero pertence sub-matriz 3x3.
+/*int pertence(int (*vetor)[3], int n){
 	for(int i=0;i<3;i++){
 		for(int j=0;j<3; j++){
-		if(vetor[i][j] == n)
-			return 1;
+			if(vetor[i][j] == n){
+				return 1;
+			}
 		}
 	}	
 	return 0; 
-}
+}*/
 
 // Essa função altera o valor na matriz onde está o numero 0.
 void substitui(int (*vetor)[3]){
@@ -147,31 +156,35 @@ void substitui(int (*vetor)[3]){
 	for(i=0;i<3;i++){
 		for(j=0;j<3; j++){
 			if(vetor[i][j] == 0){
-				while(cont < 10 && (aux ==1)){
-				aux = pertence(vetor, cont);
-				if(aux == 1)
-					cont++;
-				else
+				while(cont < 4 && (aux ==1)){
 					vetor[i][j] = cont;
+					aux = Verifica(vetor, i, j);
+					if(aux == 1){
+						cont++;
+						vetor[i][j] = 0;
+					}
 				}
 			}
+			cont = 1;
+			aux = 1;
 		}
-		cont == 0;
-		aux = 1;
 	}
 }
 
 int main(){
 	int Matriz[9][9];
-	estado_inicial(Matriz);
-	int vetor[3][3] = {{1, 0, 3}, {4, 0, 2}, {9,0,8}};
+	//estado_inicial(Matriz);
+	int vetor1[3][3] = {{0, 0, 3}, {0, 2, 1}, {1,0,2}};
 	int i, j;
-
-	substitui(vetor);
-
+	/*|2 1 3|
+	  |3 2 1|
+	  |1 3 2|
+	*/
+	substitui(vetor1);
+	printf("\n");
 	for(i=0;i<3;i++){
 		for(j=0;j<3; j++){
-			printf("%d", vetor[i][j]);
+			printf("%d", vetor1[i][j]);
 		}
 		printf("\n");
 	}
