@@ -95,11 +95,11 @@ void estado_inicial(int (*Matriz)[9]){
 
 }
 // Esta função verifica se já existe o numero na mesma linha ou na mesma coluna.
-int Verifica(int (*Matriz)[3], int n, int m){
+int Verifica(int (*Matriz)[9],int n, int m){
 	int i;
 	int cont = 0;
 	// Verifica se possui o mesmo numero na linha
-	for(i=0;i<3;i++){
+	for(i=0;i<9;i++){
 		if(Matriz[n][m] == Matriz[n][i])
 			cont++;
 		if(cont == 2)
@@ -107,7 +107,7 @@ int Verifica(int (*Matriz)[3], int n, int m){
 	}
 	cont = 0;
 	// Verifica se possui o mesmo numero na coluna
-	for(i=0;i<3;i++){
+	for(i=0;i<9;i++){
 		if(Matriz[n][m] == Matriz[i][m])
 			cont++;
 		if(cont == 2)
@@ -146,7 +146,7 @@ int Verifica_matriz3x3(int (*Matriz)[9], int n, int m){
 		}
 	}	
 	return 0; 
-}*/
+}
 
 // Essa função altera o valor na matriz onde está o numero 0.
 void substitui(int (*vetor)[3]){
@@ -169,23 +169,55 @@ void substitui(int (*vetor)[3]){
 			aux = 1;
 		}
 	}
+}*/
+
+int substitui_rec(int (*vetor)[9]){
+
+	int cont = 1;
+	int i, j;
+	int aux = 1;
+	for(i=0;i<9;i++){
+		for(j=0;j<9; j++){
+			if(vetor[i][j] == 0){
+				while(cont < 10 && (aux ==1)){
+					vetor[i][j] = cont;
+					aux = Verifica(vetor, i, j);
+					if(aux == 1){
+						cont++;
+						vetor[i][j] = 0;
+					}
+					else 
+						aux = substitui_rec(vetor);
+				}
+				if(aux == 1 || aux == 2)
+					return 2;
+			}
+			cont = 1;
+		}
+	}
+	return 0;
+
 }
 
 int main(){
 	int Matriz[9][9];
-	//estado_inicial(Matriz);
-	int vetor1[3][3] = {{0, 0, 3}, {0, 2, 1}, {1,0,2}};
+	estado_inicial(Matriz);
+	int aux;
+	int vetor1[3][3] = {{0, 2, 0}, {0, 0, 2}, {0,3,0}};
 	int i, j;
-	/*|2 1 3|
-	  |3 2 1|
-	  |1 3 2|
+	/*|1 2 3|
+	  |3 1 2|
+	  |2 3 1|
 	*/
-	substitui(vetor1);
+	aux = substitui_rec(Matriz);
 	printf("\n");
-	for(i=0;i<3;i++){
-		for(j=0;j<3; j++){
-			printf("%d", vetor1[i][j]);
+	if(aux == 2)
+		printf("Não é possivel resolver");
+	else
+		for(i=0;i<9;i++){
+			for(j=0;j<9; j++){
+				printf("%d ", Matriz[i][j]);
+			}
+			printf("\n");
 		}
-		printf("\n");
-	}
 }
