@@ -1,9 +1,13 @@
 #include<stdlib.h>
 #include<stdio.h>
 
+// Sudoku utilizando busca em profundidade. Busca não-informada
 void estado_inicial(int (*Matriz)[9]){
 
-	/*Matriz[0][0] = 4;
+	
+	// Considerado fácil, exemplo professor
+	/*
+	Matriz[0][0] = 4;
 	Matriz[0][1] = 3;
 	Matriz[0][2] = 5;
 	Matriz[0][3] = 0;
@@ -92,7 +96,9 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][6] = 2;
 	Matriz[8][7] = 5;
 	Matriz[8][8] = 9;
-
+	*/
+	/*
+	// Considerado fácil, exemplo professor
 	Matriz[0][0] = 0;
 	Matriz[0][1] = 0;
 	Matriz[0][2] = 0;
@@ -183,7 +189,8 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][7] = 0;
 	Matriz[8][8] = 0;
 	*/
-
+	/*
+	// Considerado intermediário, exemplo professor
 	Matriz[0][0] = 0;
 	Matriz[0][1] = 2;
 	Matriz[0][2] = 0;
@@ -275,6 +282,7 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][8] = 0;
 	
 	/*
+	// Considerado intermediário
 	Matriz[0][0] = 0;
 	Matriz[0][1] = 0;
 	Matriz[0][2] = 0;
@@ -365,6 +373,190 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][7] = 9;
 	Matriz[8][8] = 1;
 	*/
+	// Considerado dificil, exemplo professor
+	/*
+	Matriz[0][0] = 0;
+	Matriz[0][1] = 0;
+	Matriz[0][2] = 0;
+	Matriz[0][3] = 6;
+	Matriz[0][4] = 0;
+	Matriz[0][5] = 0;
+	Matriz[0][6] = 4;
+	Matriz[0][7] = 0;
+	Matriz[0][8] = 0;
+
+	Matriz[1][0] = 7;
+	Matriz[1][1] = 0;
+	Matriz[1][2] = 0;
+	Matriz[1][3] = 0;
+	Matriz[1][4] = 0;
+	Matriz[1][5] = 3;
+	Matriz[1][6] = 6;
+	Matriz[1][7] = 0;
+	Matriz[1][8] = 0;
+
+	Matriz[2][0] = 0;
+	Matriz[2][1] = 0;
+	Matriz[2][2] = 0;
+	Matriz[2][3] = 0;
+	Matriz[2][4] = 9;
+	Matriz[2][5] = 1;
+	Matriz[2][6] = 0;
+	Matriz[2][7] = 8;
+	Matriz[2][8] = 0;
+
+	Matriz[3][0] = 0;
+	Matriz[3][1] = 0;
+	Matriz[3][2] = 0;
+	Matriz[3][3] = 0;
+	Matriz[3][4] = 0;
+	Matriz[3][5] = 0;
+	Matriz[3][6] = 0;
+	Matriz[3][7] = 0;
+	Matriz[3][8] = 0;
+
+	Matriz[4][0] = 0;
+	Matriz[4][1] = 5;
+	Matriz[4][2] = 0;
+	Matriz[4][3] = 1;
+	Matriz[4][4] = 8;
+	Matriz[4][5] = 0;
+	Matriz[4][6] = 0;
+	Matriz[4][7] = 0;
+	Matriz[4][8] = 3;
+
+	Matriz[5][0] = 0;
+	Matriz[5][1] = 0;
+	Matriz[5][2] = 0;
+	Matriz[5][3] = 3;
+	Matriz[5][4] = 0;
+	Matriz[5][5] = 6;
+	Matriz[5][6] = 0;
+	Matriz[5][7] = 4;
+	Matriz[5][8] = 5;
+
+	Matriz[6][0] = 0;
+	Matriz[6][1] = 4;
+	Matriz[6][2] = 0;
+	Matriz[6][3] = 2;
+	Matriz[6][4] = 0;
+	Matriz[6][5] = 0;
+	Matriz[6][6] = 0;
+	Matriz[6][7] = 6;
+	Matriz[6][8] = 0;
+
+	Matriz[7][0] = 9;
+	Matriz[7][1] = 0;
+	Matriz[7][2] = 3;
+	Matriz[7][3] = 0;
+	Matriz[7][4] = 0;
+	Matriz[7][5] = 0;
+	Matriz[7][6] = 0;
+	Matriz[7][7] = 0;
+	Matriz[7][8] = 0;
+
+	Matriz[8][0] = 0;
+	Matriz[8][1] = 2;
+	Matriz[8][2] = 0;
+	Matriz[8][3] = 0;
+	Matriz[8][4] = 0;
+	Matriz[8][5] = 0;
+	Matriz[8][6] = 1;
+	Matriz[8][7] = 0;
+	Matriz[8][8] = 0;
+	*/
+	
+	Matriz[0][0] = 0;
+	Matriz[0][1] = 0;
+	Matriz[0][2] = 0;
+	Matriz[0][3] = 0;
+	Matriz[0][4] = 0;
+	Matriz[0][5] = 2;
+	Matriz[0][6] = 0;
+	Matriz[0][7] = 0;
+	Matriz[0][8] = 8;
+
+	Matriz[1][0] = 0;
+	Matriz[1][1] = 0;
+	Matriz[1][2] = 0;
+	Matriz[1][3] = 6;
+	Matriz[1][4] = 5;
+	Matriz[1][5] = 0;
+	Matriz[1][6] = 0;
+	Matriz[1][7] = 1;
+	Matriz[1][8] = 9;
+
+	Matriz[2][0] = 0;
+	Matriz[2][1] = 0;
+	Matriz[2][2] = 0;
+	Matriz[2][3] = 1;
+	Matriz[2][4] = 0;
+	Matriz[2][5] = 0;
+	Matriz[2][6] = 6;
+	Matriz[2][7] = 0;
+	Matriz[2][8] = 5;
+
+	Matriz[3][0] = 1;
+	Matriz[3][1] = 0;
+	Matriz[3][2] = 0;
+	Matriz[3][3] = 7;
+	Matriz[3][4] = 0;
+	Matriz[3][5] = 3;
+	Matriz[3][6] = 0;
+	Matriz[3][7] = 8;
+	Matriz[3][8] = 0;
+
+	Matriz[4][0] = 0;
+	Matriz[4][1] = 4;
+	Matriz[4][2] = 0;
+	Matriz[4][3] = 0;
+	Matriz[4][4] = 6;
+	Matriz[4][5] = 0;
+	Matriz[4][6] = 1;
+	Matriz[4][7] = 9;
+	Matriz[4][8] = 0;
+
+	Matriz[5][0] = 8;
+	Matriz[5][1] = 0;
+	Matriz[5][2] = 7;
+	Matriz[5][3] = 0;
+	Matriz[5][4] = 2;
+	Matriz[5][5] = 0;
+	Matriz[5][6] = 0;
+	Matriz[5][7] = 0;
+	Matriz[5][8] = 6;
+
+	Matriz[6][0] = 9;
+	Matriz[6][1] = 3;
+	Matriz[6][2] = 0;
+	Matriz[6][3] = 0;
+	Matriz[6][4] = 7;
+	Matriz[6][5] = 6;
+	Matriz[6][6] = 0;
+	Matriz[6][7] = 0;
+	Matriz[6][8] = 0;
+
+	Matriz[7][0] = 0;
+	Matriz[7][1] = 8;
+	Matriz[7][2] = 0;
+	Matriz[7][3] = 2;
+	Matriz[7][4] = 0;
+	Matriz[7][5] = 0;
+	Matriz[7][6] = 0;
+	Matriz[7][7] = 0;
+	Matriz[7][8] = 0;
+
+	Matriz[8][0] = 0;
+	Matriz[8][1] = 1;
+	Matriz[8][2] = 2;
+	Matriz[8][3] = 0;
+	Matriz[8][4] = 0;
+	Matriz[8][5] = 9;
+	Matriz[8][6] = 0;
+	Matriz[8][7] = 0;
+	Matriz[8][8] = 0;
+	
+
 }
 
 int Verifica_matriz3x3(int (*Matriz)[9], int n, int m){
@@ -521,14 +713,18 @@ int substitui_rec(int (*vetor)[9]){
 			if(vetor[i][j] == 0){
 				while(cont < 10 && (aux ==1)){
 					vetor[i][j] = cont;
-					printf("i = %d, j = %d. vetor = %d \n", i, j, vetor[i][j]);
+					printf("i = %d, j = %d. vetor = %d \n", i+1, j+1, vetor[i][j]);
 					aux = Verifica(vetor, i, j);
+					//Se o número que foi atribuido para aquila posição não for válido, então aux recebe 1. Senão a proxima posição
+					// que contem 0 é chamada recursivamente.
 					if(aux == 1){
 						cont++;
 						vetor[i][j] = 0;
 					}
 					else 
 						aux = substitui_rec(vetor);
+					// Se for retornado 2 da chamada recursiva, significa que todas as possibilidades da posição eram inválidos
+					// então a posição anterior que tinha o 0 é alterada.
 					if(aux == 2){
 						cont++;
 						aux = 1;
@@ -536,6 +732,7 @@ int substitui_rec(int (*vetor)[9]){
 					}
 
 				}
+				// Se aux continua 1, significa que todas as possibilidades foram testadas.
 				if(aux == 1)
 					return 2;
 			}
