@@ -1,7 +1,11 @@
 #include<stdlib.h>
 #include<stdio.h>
+#include <unistd.h>
 
 // Sudoku utilizando busca em profundidade. Busca não-informada
+
+
+
 void estado_inicial(int (*Matriz)[9]){
 
 	
@@ -465,7 +469,7 @@ void estado_inicial(int (*Matriz)[9]){
 	Matriz[8][7] = 0;
 	Matriz[8][8] = 0;
 	*/
-	
+	// Considerado avançado, exemplo internet
 	Matriz[0][0] = 0;
 	Matriz[0][1] = 0;
 	Matriz[0][2] = 0;
@@ -703,6 +707,19 @@ int Verifica(int (*Matriz)[9],int n, int m){
 	return aux;
 }
 
+void Exibe_Matriz(int (*Matriz)[9]){
+
+	for(int i=0;i<9;i++){
+		for(int j=0;j<9;j++){
+			printf(" %d", Matriz[i][j]);
+		}
+		printf("\n");
+	}
+
+	printf("------------------");
+	printf("\n");	
+}
+
 int substitui_rec(int (*vetor)[9]){
 
 	int cont = 1;
@@ -713,7 +730,7 @@ int substitui_rec(int (*vetor)[9]){
 			if(vetor[i][j] == 0){
 				while(cont < 10 && (aux ==1)){
 					vetor[i][j] = cont;
-					printf("i = %d, j = %d. vetor = %d \n", i+1, j+1, vetor[i][j]);
+					Exibe_Matriz(vetor);
 					aux = Verifica(vetor, i, j);
 					//Se o número que foi atribuido para aquila posição não for válido, então aux recebe 1. Senão a proxima posição
 					// que contem 0 é chamada recursivamente.
@@ -721,8 +738,11 @@ int substitui_rec(int (*vetor)[9]){
 						cont++;
 						vetor[i][j] = 0;
 					}
-					else 
+					else {
 						aux = substitui_rec(vetor);
+						usleep(20000);
+						//system("cls");
+					}
 					// Se for retornado 2 da chamada recursiva, significa que todas as possibilidades da posição eram inválidos
 					// então a posição anterior que tinha o 0 é alterada.
 					if(aux == 2){
@@ -730,6 +750,8 @@ int substitui_rec(int (*vetor)[9]){
 						aux = 1;
 						vetor[i][j] = 0;
 					}
+					usleep(20000);
+					
 
 				}
 				// Se aux continua 1, significa que todas as possibilidades foram testadas.
